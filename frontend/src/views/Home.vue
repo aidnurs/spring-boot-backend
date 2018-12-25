@@ -1,7 +1,22 @@
 <template>
   <div class="home">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+    <div class="" v-for="demo in this.demos">
+      {{demo}}
+    </div>
+    <br>
+    <br>
+    <div class="" v-for="todo in this.todos">
+      {{todo}}
+      <p>
+        {{todo.text}}
+      </p>
+      <input type="checkbox" name="" value="" :checked="todo.done">
+    </div>
+    <form class="" action="index.html" method="post" @submit.prevent="addNewTodo">
+      <input type="text" name="text" placeholder="text">
+      <input type="text" name="done" placeholder="done">
+      <button type="submit" name="button">Submit</button>
+    </form>
   </div>
 </template>
 
@@ -15,9 +30,33 @@ export default Vue.extend({
   components: {
     HelloWorld,
   },
+  data() {
+    return {
+      demos: [],
+      todos: [],
+    };
+  },
+  methods: {
+    addNewTodo(submitEvent) {
+      console.log(submitEvent.target.elements.text.value);
+
+      axios
+        .post(
+          'http://localhost:8090/todos/add',
+          submitEvent.target.elements.text.value,
+          true,
+        )
+        .then((response) => {});
+    },
+  },
   mounted() {
-    axios.get('http://localhost:8081/demo/all').then((response) => {
-      console.log(response);
+    axios.get('http://localhost:8090/demo/get').then((response) => {
+      // console.log(response);
+      this.demos = response.data;
+    });
+    axios.get('http://localhost:8090/todos/get').then((response) => {
+      // console.log(response);
+      this.todos = response.data;
     });
   },
 });
