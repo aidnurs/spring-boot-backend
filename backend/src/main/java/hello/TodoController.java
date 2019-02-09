@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 // import org.springframework.data.repository.ID;
 
-@CrossOrigin(origins = "*")
 @RestController    // This means that this class is a Controller
 @RequestMapping(path = "/todos") // This means URL's start with /demo (after Application path)
 public class TodoController {
@@ -32,8 +31,26 @@ public class TodoController {
         return TodoRepository.findAll();
     }
 
-    @GetMapping(path = "/")
-    public java.util.Optional<Todo> getTodoById(@PathVariable Integer id) {
-        return TodoRepository.findById(id);
+    @GetMapping(path = "/get/{id}")
+    public Todo getTodoById(@PathVariable Integer id) {
+        return TodoRepository.findById(id).get();
+    }
+
+    @PutMapping(path = "/change/{id}")
+    public Todo replaceTodoById(@RequestBody Todo newTodo,@PathVariable Integer id){
+        return TodoRepository.findById(id).map(todo->{
+            todo.setText(newTodo.getText());
+            todo.setDone(newTodo.getDone());
+            return TodoRepository.save(todo);
+        }).orElseGet(()->{
+            newTodo.setId(id);
+            return TodoRepository.save(newTodo);
+        });
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public String deletTodoById(@PathVariable Integer id){
+        TodoRepository.delete(TodoRepository.findById(id).get());
+        return "Todo @"+id+" successfully removed";
     }
 }
