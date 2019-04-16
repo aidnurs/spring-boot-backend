@@ -28,7 +28,7 @@ export default Vue.extend({
   components: {},
   data() {
     return {
-      todos: [],
+      todos: new Array(),
       text: '',
       done: false,
     };
@@ -44,7 +44,7 @@ export default Vue.extend({
         this.todos.push(jsonToSend);
       });
     },
-    changeTodo() {
+    changeTodo(id: number, key: number) {
       axios({
         url: 'http://localhost:8090/todos/change/' + id,
         method: 'put',

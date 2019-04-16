@@ -1,0 +1,19 @@
+{
+  "labels": [
+    "p_agb_text",
+    "p_datenschutz",
+    "p_eigentum",
+    "p_garantie",
+    "p_geltungsbereich",
+    "p_gericht",
+    "p_haftung",
+    "p_kosten",
+    "p_lieferung",
+    "p_no_widerruf",
+    "p_produkt",
+    "p_ruecksendung",
+    "p_vertrag",
+    "p_widerruf",
+    "p_zahlung"
+  ]
+}

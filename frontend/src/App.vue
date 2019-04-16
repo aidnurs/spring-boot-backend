@@ -2,7 +2,11 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/voting">Voting</router-link> |
+      <router-link to="/upload-polls">Upload Polls</router-link> |
+      <router-link to="/all-polls">All Polls</router-link>
+
     </div>
     <router-view/>
   </div>
